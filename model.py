@@ -50,7 +50,7 @@ class DDQN(nn.Module):
         self.fc_common = nn.Linear(state_size, self.common_size)
         self.fc_v_in = nn.Linear(self.common_size, self.value_size)
         self.fc_v_out = nn.Linear(self.value_size, 1)
-        self.fc_a_in = nn.Linear(self.common_size, self.advantage_advatage_size)
+        self.fc_a_in = nn.Linear(self.common_size, self.advantage_size)
         self.fc_a_out = nn.Linear(self.advantage_size, self.action_size)
         self.relu = torch.nn.ReLU()
         
@@ -61,6 +61,6 @@ class DDQN(nn.Module):
         advantage = self.relu(self.fc_a_in(common))
         value = self.fc_v_out(value)
         advantage = self.fc_a_out(advantage)
-        out = value + advantage - advantage.mean(dim=1).unqueeze(1) 
+        out = value + advantage - advantage.mean(dim=1).unsqueeze(1) 
         return out
     
